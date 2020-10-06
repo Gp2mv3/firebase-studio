@@ -15,5 +15,33 @@ The project is composed of two elements:
 - The client: The web interface, built with React
 - The proxy: Interface between Firebase admin SDK and the client, built with Node and Express
 
+### Environment variables for Admin SDK
 
+Firebase Studio uses the [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup) and needs to be initialized to use your own Firebase credentials.
+You need to set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. Refer to the [official documentation for the initialization](https://firebase.google.com/docs/admin/setup#initialize-sdk).
 
+### Proxy
+
+Simply load the proxy, in the `proxy` folder, run:
+```
+cd proxy
+npm start
+```
+
+### Client
+
+In dev, you can simply use `npm start` in the client folder:
+```
+cd client
+npm start
+```
+
+In prod, compile the application with `npm build` and host the content of the build folder on any static file hosting:
+```
+cd client
+npm build
+```
+
+## Found a bug?
+
+Feel free to open an issue !
