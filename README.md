@@ -22,23 +22,27 @@ You need to set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable. Refer
 
 ### Proxy
 
-Simply load the proxy, in the `proxy` folder, run:
+Simply load the proxy, in the `proxy` folder, run (after `npm install`):
 ```
 cd proxy
+npm install # Only needed once
+
 npm start
 ```
 
 ### Client
 
-In dev, you can simply use `npm start` in the client folder:
+In dev, you can simply use `npm start` (after `npm install`) in the client folder:
 ```
 cd client
+npm install # Only needed once
 npm start
 ```
 
-In prod, compile the application with `npm build` and host the content of the build folder on any static file hosting:
+In prod, compile the application with `npm build` (after `npm install`) and host the content of the build folder on any static file hosting:
 ```
 cd client
+npm install # Only needed once
 npm build
 ```
 
