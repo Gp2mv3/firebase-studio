@@ -547,8 +547,6 @@ pre code {
 
 .container {
   width: 100%;
-  padding-right: 0.75rem;
-  padding-left: 0.75rem;
   margin-right: auto;
   margin-left: auto;
 }
@@ -579,8 +577,6 @@ pre code {
 
 .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
   width: 100%;
-  padding-right: 0.75rem;
-  padding-left: 0.75rem;
   margin-right: auto;
   margin-left: auto;
 }
@@ -9785,10 +9781,6 @@ a:focus {
   flex: 1 0 auto;
 }
 
-.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
 
 .scroll-to-top {
   position: fixed;

@@ -9,7 +9,8 @@ import {
   Col,
   Form,
   FormControl,
-  Button,
+  Button, 
+  NavbarBrand
 } from "react-bootstrap";
 
 import { LinkContainer } from "react-router-bootstrap";
@@ -44,16 +45,28 @@ function App() {
         <div id="content-wrapper" class="d-flex flex-column">
           <div id="content">
             <Navbar bg="primary" variant="dark">
-              <Nav className="mr-auto"></Nav>
+              <Container>
+                <NavbarBrand>
+                  Firebase Studio
+                </NavbarBrand>
+                
+                <Nav>
+                  <LinkContainer to="/">
+                    <Nav.Link>User list</Nav.Link>
+                  </LinkContainer>
+                </Nav>
 
-              <Nav>
-                <LinkContainer to="/setup">
-                  <Nav.Link>Setup</Nav.Link>
-                </LinkContainer>
-              </Nav>
+                <Nav className="mr-auto"></Nav>
+
+                <Nav>
+                  <LinkContainer to="/setup">
+                    <Nav.Link>Setup</Nav.Link>
+                  </LinkContainer>
+                </Nav>
+              </Container>
             </Navbar>
 
-            <Container flex>
+            <Container id="mainPageContainer">
               <Switch>
                 <Route path="/setup">
                   <Setup />
@@ -64,27 +77,38 @@ function App() {
                 </Route>
 
                 <Route path="/claims/:id">
-                  <Claims/>
+                  <Claims />
                 </Route>
 
                 <Route path="/">
                   <List />
                 </Route>
-
               </Switch>
             </Container>
           </div>
 
-{ /* Footer
-          <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-              <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Your Website 2020</span>
-              </div>
-            </div>
+          <footer class="sticky-footer">
+            <Container className="text-center my-auto">
+              <Row>
+                <Col>
+                  <hr />
+                  <span>
+                    Made by{" "}
+                    <a href="https://gp2mv3.com" target="_blank">
+                      Gp2mv3
+                    </a>{" "}
+                    - The code is on{" "}
+                    <a
+                      href="https://github.com/Gp2mv3/firebase-studio"
+                      target="_blank"
+                    >
+                      Github
+                    </a>
+                  </span>
+                </Col>
+              </Row>
+            </Container>
           </footer>
- */}
-
         </div>
       </div>
     </Router>
