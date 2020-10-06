@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -23,6 +23,10 @@ export default () => {
 
     setUsers(users);
   }
+
+  useEffect(function effect() {
+    fetchList();
+  }, []);
 
   return (
     <Container fluid>
