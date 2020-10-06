@@ -5,7 +5,13 @@ import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+
 import Button from "react-bootstrap/Button";
+
+import { useForm } from "react-hook-form";
 
 import locale from "react-json-editor-ajrm/locale/en";
 
@@ -17,43 +23,44 @@ export default () => {
 
   const [user, setUser] = useState(undefined);
   const [canSend, setCanSend] = useState(false);
-  const [formValue, setFormValue] = useState({});
   const [flash, setFlash] = useState(null);
-
+  const { register, handleSubmit, watch, errors } = useForm();
 
   async function fetchUser() {
     const { url, credentials } = await getConfig();
 
-    const {
-      user,
-    } = await fetch(`${url}/user/${id}`, {
+    const { user } = await fetch(`${url}/user/${id}`, {
       method: "get",
       headers: { credentials },
     }).then((r) => r.json());
 
+    console.log({ user });
     setUser(user);
-    console.log(user);
+    setCanSend(true);
   }
 
-  async function sendUser() {
+  const onSubmit = async ({
+    sendVerificationEmail,
+    askPasswordReset,
+    passwordCheck,
+    ...user
+  }) => {
     setCanSend(false);
     const { url, credentials } = await getConfig();
 
     try {
-      const result = await fetch(`${url}/user/${id}/claims`, {
+      const result = await fetch(`${url}/user/${id}`, {
         method: "post",
-        body: JSON.stringify({user}),
-        headers: { credentials, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user, sendVerificationEmail }),
+        headers: { credentials, "Content-Type": "application/json" },
       }).then((r) => r.json());
-      setFlash({success: true});
+      setFlash({ success: true });
+    } catch (e) {
+      setFlash({ success: false, message: e.message });
     }
-    catch (e) {
-      setFlash({success: false, message: e.message});
-    }
-  }
 
-
-  
+    setCanSend(true);
+  };
 
   useEffect(() => {
     fetchUser();
@@ -61,25 +68,164 @@ export default () => {
 
   return (
     <Container fluid>
-       <Row>
-        <Col>
-          {!!flash && <Alert variant={flash.success ? "success" : 'warning'}>{flash.message || "Claims updated !"}</Alert>}
-
-        </Col>
-      </Row>
-
       <Row>
         <Col>
-          <Button onClick={fetchUser}>Refresh </Button>
+          <h2>Edit user info</h2>
+          {!!user && (
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form.Group controlId="displayName">
+                <Form.Label>Display Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Display Name"
+                  defaultValue={user.displayName}
+                  name="displayName"
+                  ref={register}
+                />
+              </Form.Group>
+
+              <Form.Group controlId="email">
+                <Form.Label>Email address</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="email"
+                    placeholder="Email address"
+                    defaultValue={user.email}
+                    name="email"
+                    ref={register}
+                  />
+                  <InputGroup.Append>
+                    <InputGroup.Text>@</InputGroup.Text>
+                  </InputGroup.Append>
+                </InputGroup>
+                {/*
+                <Form.Check
+                  type="checkbox"
+                  label="Send verification email (after change)"
+                  name="sendVerificationEmail"
+                  defaultChecked={user.emailVerified}
+                  ref={register}
+                  style={{
+                    display: user.email !== watch("email") ? "block" : "none",
+                  }}
+                /> 
+                */}
+                <Form.Check
+                  type="checkbox"
+                  label="Verified email address"
+                  name="emailVerified"
+                  defaultChecked={user.emailVerified}
+                  ref={register}
+                  style={{
+                    // display: user.email !== watch("email") ? "none" : "block",
+                  }}
+                />
+              </Form.Group>
+
+              <Form.Group controlId="phone">
+                <Form.Label>Phone number</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="tel"
+                    placeholder="Phone number"
+                    defaultValue={user.phoneNumber}
+                    name="phoneNumber"
+                    ref={register}
+                  />
+                  <InputGroup.Append>
+                    <InputGroup.Text>#</InputGroup.Text>
+                  </InputGroup.Append>
+                </InputGroup>
+              </Form.Group>
+
+              <Form.Group controlId="photoURL">
+                <Form.Label>Photo URL</Form.Label>
+                <InputGroup>
+                  <Form.Control
+                    type="url"
+                    placeholder="Photo URL"
+                    defaultValue={user.photoURL}
+                    name="photoURL"
+                    ref={register}
+                  />
+                  <InputGroup.Append>
+                    <InputGroup.Text>://</InputGroup.Text>
+                  </InputGroup.Append>
+                </InputGroup>
+              </Form.Group>
+
+              <hr />
+              <Form.Group controlId="password">
+                <Form.Label>New password</Form.Label>
+                <Row>
+                  <Col>
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      name="password"
+                      ref={register}
+                    />
+                  </Col>
+                  <Col>
+                    <Form.Control
+                      type="password"
+                      placeholder="Repeat password"
+                      name="passwordCheck"
+                      ref={register({
+                        validate: (v) => v === watch("password"),
+                      })}
+                    />
+                  </Col>
+                </Row>
+                {/*
+                  <Form.Check
+                  type="checkbox"
+                  label="Send password reset email"
+                  name="askPasswordReset"
+                  ref={register}
+                /> 
+                */}
+              </Form.Group>
+
+              <Form.Group controlId="photoURL">
+                <Form.Label>Disable user</Form.Label>
+                <Form.Check
+                  type="checkbox"
+                  label="User is disabld (Cannot use your app while disabled)"
+                  name="disabled"
+                  defaultChecked={user.disabled}
+                  ref={register}
+                />
+              </Form.Group>
+
+              {errors.exampleRequired && <span>This field is required</span>}
+
+              <Button type="submit" disabled={!canSend}>
+                Update user
+              </Button>
+            </Form>
+          )}
         </Col>
-      </Row>
 
+        <Col lg="4">
+          <Button onClick={fetchUser}>Refresh form</Button>
 
-      <Row>
-        <Col>
-         {!!user && JSON.stringify(user)}
-         
-          <Button onClick={sendUser} disabled={!canSend}>Update user</Button>
+          {!!flash && (
+            <Alert variant={flash.success ? "success" : "warning"}>
+              {flash.message || "User updated !"}
+            </Alert>
+          )}
+
+          <Alert variant="info">
+            <p>All user properties are optional.</p>
+
+            <p>
+              If a certain property is not specified (field is empty), the value
+              for that property will be deleted.
+            </p>
+
+            <p>Old values are lost after you update a user.</p>
+          </Alert>
         </Col>
       </Row>
     </Container>

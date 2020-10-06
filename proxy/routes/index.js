@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
+// var auth = require('firebase/auth');
 var admin = require("firebase-admin");
 
 admin.initializeApp();
@@ -13,6 +14,7 @@ function formatUser(u) {
     emailVerified: u.emailVerified,
     displayName: u.displayName,
     photoURL: u.photoURL,
+    phoneNumber: u.phoneNumber,
     disabled: u.disabled,
     creationTime: new Date(Date.parse(u.metadata.creationTime)).toISOString(),
     lastSignInTime: new Date(
@@ -65,20 +67,48 @@ router.get("/user/:id", async function (req, res) {
   res.send({ user: formatUser(user) });
 });
 
-
 router.post("/user/:id", async function (req, res) {
   const { params, body } = req;
   const { id } = params;
-  const { email, phoneNumber, emailVerified, password, displayName, photoURL, disabled } = body;
+  const { user, sendVerificationEmail, askPasswordReset } = body;
+  const {
+    email,
+    phoneNumber,
+    emailVerified,
+    password,
+    displayName,
+    photoURL,
+    disabled,
+  } = user;
 
   // TODO: Add validation here !
-  const updatedValues = { email, phoneNumber, emailVerified, password, displayName, photoURL, disabled }
+  const updatedValues = {
+    email: email.length ? email : undefined,
+    phoneNumber: phoneNumber.length ? phoneNumber : undefined,
+    password: password.length ? password : undefined,
+    displayName: displayName.length ? displayName : undefined,
+    photoURL: photoURL.length ? photoURL : undefined,
+    disabled,
+    emailVerified,
+  };
 
   try {
-    await admin.auth().updateUser(id, updatedValues)
-    res.send({ result: 'OK' });
+    await admin.auth().updateUser(id, updatedValues);
+
+    if (sendVerificationEmail) {
+      const link = await admin.auth().generateEmailVerificationLink(email);
+      console.log({ link }); // TODO: Actually send email here
+    }
+
+    if (askPasswordReset) {
+      const link = await admin.auth().generatePasswordResetLink(email);
+      console.log({ link }); // TODO: Actually send email here
+    }
+
+    res.send({ result: "OK" });
   } catch (error) {
-    res.status(500).send({error: error.message});
+    console.warn(error)
+    res.status(500).send({ error: error.message });
   }
 });
 
@@ -89,10 +119,10 @@ router.post("/user/:id/claims", async function (req, res) {
   const { claims } = body;
 
   try {
-    await admin.auth().setCustomUserClaims(id, claims)
-    res.send({ result: 'OK' });
+    await admin.auth().setCustomUserClaims(id, claims);
+    res.send({ result: "OK" });
   } catch (error) {
-    res.status(500).send({error: error.message});
+    res.status(500).send({ error: error.message });
   }
 });
 
