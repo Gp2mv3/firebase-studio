@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 
-// var auth = require('firebase/auth');
 var admin = require("firebase-admin");
 
 admin.initializeApp();
