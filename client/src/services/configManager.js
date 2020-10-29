@@ -1,13 +1,13 @@
 // TODO: If using localStorage: Encrypt !
 
-export async function storeConfig(url, file) {
-  localStorage.setItem("configFile", btoa(JSON.stringify(JSON.parse(file))));
+export async function storeConfig(url, secret) {
+  localStorage.setItem("proxySecret", secret);
   localStorage.setItem("proxyAddress", url);
   return;
 }
 
 export async function getConfig() {
-  const credentials = await localStorage.getItem("configFile");
+  const secret = await localStorage.getItem("proxySecret");
   const url = await localStorage.getItem("proxyAddress");
-  return { url, credentials };
+  return { url, secret };
 }

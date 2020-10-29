@@ -14,11 +14,11 @@ export default () => {
   const [users, setUsers] = useState([]);
 
   async function fetchList(fields, sort) {
-    const { url, credentials } = await getConfig();
+    const { url, secret } = await getConfig();
 
     const {users} = await fetch(`${url}/list`, {
       method: 'get',
-      headers: { credentials }
+      headers: { secret }
     }).then(r => r.json());
 
     setUsers(users);

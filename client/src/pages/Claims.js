@@ -23,13 +23,13 @@ export default () => {
 
 
   async function fetchClaims() {
-    const { url, credentials } = await getConfig();
+    const { url, secret } = await getConfig();
 
     const {
       user: { claims },
     } = await fetch(`${url}/user/${id}`, {
       method: "get",
-      headers: { credentials },
+      headers: { secret },
     }).then((r) => r.json());
 
     setClaims(claims);
@@ -38,13 +38,13 @@ export default () => {
 
   async function sendClaims() {
     setCanSend(false);
-    const { url, credentials } = await getConfig();
+    const { url, secret } = await getConfig();
 
     try {
       const result = await fetch(`${url}/user/${id}/claims`, {
         method: "post",
         body: JSON.stringify({claims: formValue}),
-        headers: { credentials, 'Content-Type': 'application/json' },
+        headers: { secret, 'Content-Type': 'application/json' },
       }).then((r) => r.json());
       setFlash({success: true});
     }

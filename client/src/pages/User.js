@@ -27,11 +27,11 @@ export default () => {
   const { register, handleSubmit, watch, errors } = useForm();
 
   async function fetchUser() {
-    const { url, credentials } = await getConfig();
+    const { url, secret } = await getConfig();
 
     const { user } = await fetch(`${url}/user/${id}`, {
       method: "get",
-      headers: { credentials },
+      headers: { secret },
     }).then((r) => r.json());
 
     console.log({ user });
@@ -46,13 +46,13 @@ export default () => {
     ...user
   }) => {
     setCanSend(false);
-    const { url, credentials } = await getConfig();
+    const { url, secret } = await getConfig();
 
     try {
       const result = await fetch(`${url}/user/${id}`, {
         method: "post",
         body: JSON.stringify({ user, sendVerificationEmail }),
-        headers: { credentials, "Content-Type": "application/json" },
+        headers: { secret, "Content-Type": "application/json" },
       }).then((r) => r.json());
       setFlash({ success: true });
     } catch (e) {

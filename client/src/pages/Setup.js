@@ -12,21 +12,12 @@ import { storeConfig } from '../services/configManager'
 import FlashMessage from '../components/FlashMessage'
 
 export default () => {
-
   const [flash, setFlash] = useState({});
 
-  function fetchList(fields, sort) {}
-
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-
-    var reader = new FileReader();
-    reader.onload = (e) => {
-      storeConfig(data.proxyAddress, e.target.result).then(() => setFlash({success: "Config stored !"}));
-    };  
-    reader.readAsText(data.configFile[0]);
-
+    storeConfig(data.proxyAddress, e.proxySecret).then(() => setFlash({success: "Config stored !"}));
   };
 
   return (
@@ -48,12 +39,12 @@ export default () => {
               />
             </Form.Group>
 
-            <Form.Group controlId="configuration-key">
-              <Form.Label>Configuration key</Form.Label>
-              <Form.File
-                label="Configuration file"
-                name="configFile"
-                custom
+            <Form.Group controlId="proxy-secret">
+              <Form.Label>Proxy secret token</Form.Label>
+              <Form.Control
+                type="password"
+                name="proxySecret"
+                placeholder=""
                 ref={register}
                 required
               />
