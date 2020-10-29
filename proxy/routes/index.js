@@ -15,10 +15,10 @@ function formatUser(u) {
     photoURL: u.photoURL,
     phoneNumber: u.phoneNumber,
     disabled: u.disabled,
-    creationTime: new Date(Date.parse(u.metadata.creationTime)).toISOString(),
-    lastSignInTime: new Date(
+    creationTime: !!u.metadata.creationTime && (new Date(Date.parse(u.metadata.creationTime)).toISOString()),
+    lastSignInTime: !!u.metadata.lastSignInTime && (new Date(
       Date.parse(u.metadata.lastSignInTime)
-    ).toISOString(),
+    ).toISOString()),
     providers: u.providerData,
     claims: u.customClaims,
   };
