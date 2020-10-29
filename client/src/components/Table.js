@@ -45,6 +45,15 @@ const renderName = ({ row, value }) => {
     </span>
   );
 };
+
+const renderUID = ({ value }) => {
+  return (
+    <span>
+      <Link to={`/user/${value}`}>{value}</Link>
+    </span>
+  );
+};
+
 const renderEmail = ({ row, value }) => (
   <span>
     {value} {!!row.original.emailVerified && "✅"}
@@ -109,7 +118,8 @@ const columns = [
   },
   {
     Header: "Firebase UID",
-    accessor: "uid",
+    accessor: 'uid',
+    Cell: renderUID,
   },
   {
     Header: "Providers",
