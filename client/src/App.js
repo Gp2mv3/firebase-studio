@@ -60,7 +60,7 @@ function App() {
 
                 <Nav>
                   <LinkContainer to="/setup">
-                    <Nav.Link>Setup</Nav.Link>
+                    <Nav.Link>Setup Proxy</Nav.Link>
                   </LinkContainer>
                 </Nav>
               </Container>
