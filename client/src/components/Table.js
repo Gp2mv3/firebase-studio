@@ -27,8 +27,15 @@ import {
 
 import "./Table.css";
 import { Link } from "react-router-dom";
-import { LinkContainer } from "react-router-bootstrap";
 
+const deleteUser = (uid) => () => {
+  alert("Not implemented yet !")
+}
+
+const disableUser = (uid) => () => {
+  alert("Not implemented yet !")
+
+}
 
 const renderTime = ({ value }) => {
   const dt = DateTime.fromISO(value);
@@ -59,10 +66,17 @@ const renderEmail = ({ row, value }) => (
     {value} {!!row.original.emailVerified && "✅"}
   </span>
 );
+
 const renderClaims = ({ row, value }) => <>
-<ul className="claimList">{!!value && Object.keys(value).map((k) => <li><strong>{`${k}`}</strong>{`: ${value[k]}`}</li>)}</ul>
+{!!value && <ul className="claimList">{Object.keys(value).map((k) => <li><strong>{`${k}`}</strong>{`: ${value[k]}`}</li>)}</ul>}
 <Link to={`/claims/${row.original.uid}`}>Edit</Link>
 </>;
+
+const renderButtons = ({ row }) => <ButtonGroup>
+<Button onClick={deleteUser(row.original.uid)}>Delete</Button>
+<Button onClick={disableUser(row.original.uid)}>Disable</Button>
+</ButtonGroup>;
+
 const renderProviders = ({ value }) => {
   return (
     !!value?.length &&
@@ -125,6 +139,10 @@ const columns = [
     Header: "Providers",
     accessor: "providers",
     Cell: renderProviders,
+  },
+  {
+    Header: "Actions",
+    Cell: renderButtons,
   },
 ];
 
