@@ -23,19 +23,23 @@ import {
   GrHelp,
   GrMail,
   GrLinkedin,
+  GrEdit,
+  GrTrash,
+  GrPause,
 } from "react-icons/gr";
+import { IconContext } from "react-icons";
 
+import { LinkContainer } from "react-router-bootstrap";
 import "./Table.css";
 import { Link } from "react-router-dom";
 
 const deleteUser = (uid) => () => {
-  alert("Not implemented yet !")
-}
+  alert("Not implemented yet !");
+};
 
 const disableUser = (uid) => () => {
-  alert("Not implemented yet !")
-
-}
+  alert("Not implemented yet !");
+};
 
 const renderTime = ({ value }) => {
   const dt = DateTime.fromISO(value);
@@ -48,15 +52,8 @@ const renderTime = ({ value }) => {
 const renderName = ({ row, value }) => {
   return (
     <span>
-      <Link to={`/user/${row.original.uid}`}>{value}</Link> {!!row.original.disabled && "🛑"}
-    </span>
-  );
-};
-
-const renderUID = ({ value }) => {
-  return (
-    <span>
-      <Link to={`/user/${value}`}>{value}</Link>
+      <Link to={`/user/${row.original.uid}`}>{value}</Link>{" "}
+      {!!row.original.disabled && "🛑"}
     </span>
   );
 };
@@ -67,15 +64,37 @@ const renderEmail = ({ row, value }) => (
   </span>
 );
 
-const renderClaims = ({ row, value }) => <>
-{!!value && <ul className="claimList">{Object.keys(value).map((k) => <li><strong>{`${k}`}</strong>{`: ${value[k]}`}</li>)}</ul>}
-<Link to={`/claims/${row.original.uid}`}>Edit</Link>
-</>;
+const renderClaims = ({ row, value }) => (
+  <>
+    {!!value && (
+      <ul className="claimList">
+        {Object.keys(value).map((k) => (
+          <li>
+            <strong>{`${k}`}</strong>
+            {`: ${value[k]}`}
+          </li>
+        ))}
+      </ul>
+    )}
+    <Link to={`/claims/${row.original.uid}`}>Edit</Link>
+  </>
+);
 
-const renderButtons = ({ row }) => <ButtonGroup>
-<Button onClick={deleteUser(row.original.uid)}>Delete</Button>
-<Button onClick={disableUser(row.original.uid)}>Disable</Button>
-</ButtonGroup>;
+const renderButtons = ({ row }) => (
+    <ButtonGroup>
+      <LinkContainer to={`/user/${row.original.uid}`}>
+        <Button>
+          <GrEdit title="Edit" />
+        </Button>
+      </LinkContainer>
+      <Button onClick={deleteUser(row.original.uid)}>
+        <GrTrash title="Delete" />
+      </Button>
+      <Button onClick={disableUser(row.original.uid)}>
+        <GrPause title="Disable" />
+      </Button>
+    </ButtonGroup>
+);
 
 const renderProviders = ({ value }) => {
   return (
@@ -132,8 +151,7 @@ const columns = [
   },
   {
     Header: "Firebase UID",
-    accessor: 'uid',
-    Cell: renderUID,
+    accessor: "uid",
   },
   {
     Header: "Providers",
