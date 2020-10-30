@@ -2,3 +2,10 @@
     padding-left: 0;
     list-style: none;
 }
+
+/*
+Correct issue on Grommet icons: https://github.com/react-icons/react-icons/issues/334
+*/
+.buttonsWithIcons path, g {
+    stroke: currentColor;
+}
