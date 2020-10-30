@@ -27,18 +27,30 @@ import {
   GrTrash,
   GrPause,
 } from "react-icons/gr";
-import { IconContext } from "react-icons";
-
-import { LinkContainer } from "react-router-bootstrap";
-import "./Table.css";
 import { Link } from "react-router-dom";
+import { LinkContainer } from "react-router-bootstrap";
+
+import "./Table.css";
+import { getConfig } from "../services/configManager";
+
 
 const deleteUser = (uid) => () => {
-  alert("Not implemented yet !");
+  if(window.confirm(`Are you sure you want to delete user ${uid} ?`)) {
+    getConfig().then(({ url, secret }) => {
+      return fetch(`${url}/user/${uid}`, {
+        method: 'delete',
+        headers: { secret }
+      });
+    });
+  }
 };
 
 const disableUser = (uid) => () => {
-  alert("Not implemented yet !");
+  return alert("Not yet implemented");
+
+  if(window.confirm(`Are you sure you want to disable user ${uid} ?`)) {
+
+  }
 };
 
 const renderTime = ({ value }) => {
@@ -81,7 +93,7 @@ const renderClaims = ({ row, value }) => (
 );
 
 const renderButtons = ({ row }) => (
-    <ButtonGroup>
+    <ButtonGroup className="buttonsWithIcons">
       <LinkContainer to={`/user/${row.original.uid}`}>
         <Button>
           <GrEdit title="Edit" />
@@ -197,7 +209,6 @@ export default ({ data }) => {
     setGlobalFilter(value || undefined);
   }, 200);
 
-  // Render the UI for your table
   return (
     <>
       <ButtonToolbar className="justify-content-between">

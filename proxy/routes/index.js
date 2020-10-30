@@ -125,6 +125,33 @@ router.post("/user/:id/claims", async function (req, res) {
   }
 });
 
+/* PATCH Disable user 
+router.patch("/user/:id/:disabled", async function (req, res) {
+  const { params, body } = req;
+  const { id, disabled } = params;
+
+  try {
+    await admin.auth().updateUser(id, { disabled: disabled === 'true' });
+    res.send({ result: "OK" });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+*/
+
+/* DELETE user */
+router.delete("/user/:id", async function (req, res) {
+  const { params } = req;
+  const { id } = params;
+
+  try {
+    await admin.auth().deleteUser(id);
+    res.send({ result: "OK" });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+});
+
 // search users: search in name, email, phone, uid, claims,...
 
 // update user: Update user's data (displayname, email, photoURL, phoneNumber)
