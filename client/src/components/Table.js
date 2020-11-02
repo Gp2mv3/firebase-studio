@@ -43,10 +43,11 @@ const deleteUser = (uid) => () => {
 
 const disableUser = (uid) => () => {
   return alert("Not yet implemented");
-
+  /*
   if(window.confirm(`Are you sure you want to disable user ${uid} ?`)) {
 
   }
+  */
 };
 
 const renderTime = ({ value }) => {
@@ -130,7 +131,7 @@ const columns = [
   {
     Header: "Picture",
     accessor: "photoURL",
-    Cell: ({ value }) => !!value && <img src={value} width="70" height="70" />,
+    Cell: ({ value }) => !!value && <img src={value} title={value} alt={value} width="70" height="70" />,
   },
   {
     Header: "Name",

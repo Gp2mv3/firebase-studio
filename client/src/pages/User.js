@@ -14,7 +14,6 @@ import { LinkContainer } from "react-router-bootstrap";
 
 import { GrRefresh, GrUserAdmin, GrPrevious } from "react-icons/gr";
 import { useForm } from "react-hook-form";
-import locale from "react-json-editor-ajrm/locale/en";
 
 import FlashMessage from "../components/FlashMessage";
 
