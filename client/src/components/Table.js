@@ -31,17 +31,12 @@ import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 
 import "./Table.css";
-import { getConfig } from "../services/configManager";
+import { fetchDelete } from "../services/networkManager";
 
 
 const deleteUser = (uid) => () => {
   if(window.confirm(`Are you sure you want to delete user ${uid} ?`)) {
-    getConfig().then(({ url, secret }) => {
-      return fetch(`${url}/user/${uid}`, {
-        method: 'delete',
-        headers: { secret }
-      });
-    });
+      fetchDelete(`user/${uid}`);
   }
 };
 

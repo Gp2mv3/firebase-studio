@@ -15,8 +15,8 @@ import { useForm } from "react-hook-form";
 
 import locale from "react-json-editor-ajrm/locale/en";
 
-import { getConfig } from "../services/configManager";
 import { Alert } from "react-bootstrap";
+import { fetchGet, fetchPost } from "../services/networkManager";
 
 export default () => {
   const { id } = useParams();
@@ -27,12 +27,7 @@ export default () => {
   const { register, handleSubmit, watch, errors } = useForm();
 
   async function fetchUser() {
-    const { url, secret } = await getConfig();
-
-    const { user } = await fetch(`${url}/user/${id}`, {
-      method: "get",
-      headers: { secret },
-    }).then((r) => r.json());
+    const { user } = await fetchGet(`user/${id}`);
 
     console.log({ user });
     setUser(user);
@@ -46,14 +41,9 @@ export default () => {
     ...user
   }) => {
     setCanSend(false);
-    const { url, secret } = await getConfig();
 
     try {
-      const result = await fetch(`${url}/user/${id}`, {
-        method: "post",
-        body: JSON.stringify({ user, sendVerificationEmail }),
-        headers: { secret, "Content-Type": "application/json" },
-      }).then((r) => r.json());
+      await fetchPost(`user/${id}`, { user, sendVerificationEmail });
       setFlash({ success: true });
     } catch (e) {
       setFlash({ success: false, message: e.message });

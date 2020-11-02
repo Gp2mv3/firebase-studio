@@ -7,20 +7,14 @@ import Button from "react-bootstrap/Button";
 
 import Table from '../components/Table';
 
-import {getConfig} from '../services/configManager'
+import { fetchGet } from '../services/networkManager';
 
 export default () => {
 
   const [users, setUsers] = useState([]);
 
   async function fetchList(fields, sort) {
-    const { url, secret } = await getConfig();
-
-    const {users} = await fetch(`${url}/user/list`, {
-      method: 'get',
-      headers: { secret }
-    }).then(r => r.json());
-
+    const { users } = await fetchGet(`user/list`);
     setUsers(users);
   }
 

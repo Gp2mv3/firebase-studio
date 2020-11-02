@@ -10,8 +10,8 @@ import Button from "react-bootstrap/Button";
 import JSONInput from "react-json-editor-ajrm";
 import locale from "react-json-editor-ajrm/locale/en";
 
-import { getConfig } from "../services/configManager";
 import { Alert } from "react-bootstrap";
+import { fetchGet, fetchPost } from '../services/networkManager';
 
 export default () => {
   const { id } = useParams();
@@ -23,14 +23,9 @@ export default () => {
 
 
   async function fetchClaims() {
-    const { url, secret } = await getConfig();
-
     const {
       user: { claims },
-    } = await fetch(`${url}/user/${id}`, {
-      method: "get",
-      headers: { secret },
-    }).then((r) => r.json());
+    } = await fetchGet(`user/${id}`);
 
     setClaims(claims);
     console.log(claims);
@@ -38,14 +33,8 @@ export default () => {
 
   async function sendClaims() {
     setCanSend(false);
-    const { url, secret } = await getConfig();
-
     try {
-      const result = await fetch(`${url}/user/${id}/claims`, {
-        method: "post",
-        body: JSON.stringify({claims: formValue}),
-        headers: { secret, 'Content-Type': 'application/json' },
-      }).then((r) => r.json());
+      await fetchPost(`user/${id}/claims`, {claims: formValue});
       setFlash({success: true});
     }
     catch (e) {
