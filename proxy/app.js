@@ -8,6 +8,7 @@ var passport = require('passport');
 var headerStrategy = require('passport-http-header-strategy').Strategy;
 
 var userRoutes = require("./routes/user");
+var indexRoutes = require("./routes/index");
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 
+app.use("/", indexRoutes);
 app.use("/user", passport.authenticate('header',  {session: false }), userRoutes);
 
 // catch 404 and forward to error handler
