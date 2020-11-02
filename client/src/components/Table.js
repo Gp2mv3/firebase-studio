@@ -26,6 +26,7 @@ import {
   GrEdit,
   GrTrash,
   GrPause,
+  GrRefresh,
 } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
@@ -171,7 +172,7 @@ const columns = [
   },
 ];
 
-export default ({ data }) => {
+export default ({ data, onFetch }) => {
   const {
     getTableProps,
     headers,
@@ -222,6 +223,8 @@ export default ({ data }) => {
             placeholder={`${count} records...`}
           />
         </InputGroup>
+
+        {onFetch && (<Button onClick={onFetch}><GrRefresh /> Refresh</Button>)}
 
         <ButtonGroup>
           <Button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>

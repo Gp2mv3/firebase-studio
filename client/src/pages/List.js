@@ -27,12 +27,8 @@ export default () => {
   return (
     <Container fluid>
       <Row>
-        <Col><Button onClick={fetchList}><GrRefresh /> Fetch </Button></Col>
-      </Row>
-
-      <Row>
         <Col>
-          <Table data={users}/>
+          <Table data={users} onFetch={fetchList}/>
         </Col>
       </Row>
     </Container>

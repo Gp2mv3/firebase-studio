@@ -7,13 +7,11 @@ import {
   Container,
   Row,
   Col,
-  Form,
-  FormControl,
-  Button, 
   NavbarBrand
 } from "react-bootstrap";
 
 import { LinkContainer } from "react-router-bootstrap";
+import { GrTroubleshoot, GrUnorderedList } from 'react-icons/gr';
 
 import List from "./pages/List";
 import Setup from "./pages/Setup";
@@ -46,13 +44,16 @@ function App() {
           <div id="content">
             <Navbar bg="primary" variant="dark">
               <Container>
+              <LinkContainer to="/">
+
                 <NavbarBrand>
                   Firebase Studio
                 </NavbarBrand>
-                
+                </LinkContainer>
+
                 <Nav>
                   <LinkContainer to="/">
-                    <Nav.Link>User list</Nav.Link>
+                    <Nav.Link><GrUnorderedList /> User list</Nav.Link>
                   </LinkContainer>
                 </Nav>
 
@@ -60,7 +61,7 @@ function App() {
 
                 <Nav>
                   <LinkContainer to="/setup">
-                    <Nav.Link>Setup Proxy</Nav.Link>
+                    <Nav.Link><GrTroubleshoot /> Setup Proxy</Nav.Link>
                   </LinkContainer>
                 </Nav>
               </Container>
