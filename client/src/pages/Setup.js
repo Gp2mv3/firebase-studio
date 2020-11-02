@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import InputGroup from "react-bootstrap/InputGroup";
 
 import { useForm } from "react-hook-form";
 
@@ -34,16 +35,22 @@ export default () => {
       <Container fluid>
         <Row>
           <Col>
+            <h2>Setup proxy</h2>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Form.Group controlId="proxy-address">
                 <Form.Label>Proxy Address</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="proxyAddress"
-                  placeholder="localhost:8080"
-                  ref={register}
-                  required
-                />
+                <InputGroup>
+                  <Form.Control
+                    type="text"
+                    name="proxyAddress"
+                    placeholder="http://localhost:8080"
+                    ref={register}
+                    required
+                  />
+                  <InputGroup.Append>
+                    <InputGroup.Text>://</InputGroup.Text>
+                  </InputGroup.Append>
+                </InputGroup>
               </Form.Group>
 
               <Form.Group controlId="proxy-secret">
@@ -67,13 +74,20 @@ export default () => {
             <FlashMessage flash={flash} />
 
             <Alert variant="info">
-              <p>Install a <a href="https://github.com/Gp2mv3/firebase-studio" target="_blank">Firebase Studio proxy</a> and configure it with your <a href="https://firebase.google.com/docs/admin/setup#initialize-sdk" target="_blank">Firebase Admin credentials</a>.</p>
-
               <p>
-                Your proxy has to be accessible by your browser. Requests are sent directly to the URL. If your proxy is exposed to the web, use a strong secret key to ensure security and change it regularly.
+                Install a <a href="https://github.com/Gp2mv3/firebase-studio" target="_blank">Firebase Studio proxy</a> and configure it with your <a href="https://firebase.google.com/docs/admin/setup#initialize-sdk" target="_blank">Firebase Admin credentials</a>.
               </p>
 
-              <p>Your setup is stored in your browser (in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank">localStorage</a>).</p>
+              <p>
+                Your proxy has to be accessible by your browser. Requests are
+                sent directly to the URL. If your proxy is exposed to the web,
+                use a strong secret key to ensure security and change it
+                regularly.
+              </p>
+
+              <p>
+                Your setup is stored in your browser (in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank"> localStorage</a>).
+              </p>
             </Alert>
           </Col>
         </Row>

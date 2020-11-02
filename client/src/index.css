@@ -16,6 +16,9 @@ code {
     monospace;
 }
 
+h2 {
+  padding-top: 30px;
+}
 
 #mainPageContainer {
   margin-top: 30px;
@@ -25,6 +28,6 @@ code {
 /*
 Correct issue on Grommet icons: https://github.com/react-icons/react-icons/issues/334
 */
-.btn-primary path, g {
+path, g, polyline {
   stroke: currentColor;
 }

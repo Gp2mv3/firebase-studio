@@ -10,12 +10,13 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import { Alert } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
-import { GrRefresh } from 'react-icons/gr';
+import { GrRefresh, GrUserAdmin, GrPrevious } from "react-icons/gr";
 import { useForm } from "react-hook-form";
 import locale from "react-json-editor-ajrm/locale/en";
 
-import FlashMessage from '../components/FlashMessage';
+import FlashMessage from "../components/FlashMessage";
 
 import { fetchGet, fetchPost } from "../services/networkManager";
 
@@ -61,6 +62,10 @@ export default () => {
     <Container fluid>
       <Row>
         <Col>
+          <LinkContainer exact to="/">
+            <Button><GrPrevious /> Back to list</Button>
+          </LinkContainer>
+
           <h2>Edit user info</h2>
           {!!user && (
             <Form onSubmit={handleSubmit(onSubmit)}>
@@ -107,9 +112,11 @@ export default () => {
                   name="emailVerified"
                   defaultChecked={user.emailVerified}
                   ref={register}
-                  style={{
-                    // display: user.email !== watch("email") ? "none" : "block",
-                  }}
+                  style={
+                    {
+                      // display: user.email !== watch("email") ? "none" : "block",
+                    }
+                  }
                 />
               </Form.Group>
 
@@ -199,8 +206,15 @@ export default () => {
         </Col>
 
         <Col lg="4">
-          <Button onClick={fetchUser}><GrRefresh /> Refresh form</Button>
-          
+          <Button onClick={fetchUser}>
+            <GrRefresh /> Refresh form
+          </Button>
+          <LinkContainer to={`/claims/${id}`}>
+            <Button>
+              <GrUserAdmin /> Custom claims
+            </Button>
+          </LinkContainer>
+
           <FlashMessage flash={flash} />
 
           <Alert variant="info">

@@ -7,11 +7,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import { LinkContainer } from "react-router-bootstrap";
 
 import JSONInput from "react-json-editor-ajrm";
 import locale from "react-json-editor-ajrm/locale/en";
 
-import { GrRefresh } from 'react-icons/gr';
+import { GrPrevious, GrRefresh, GrUser } from 'react-icons/gr';
 
 import FlashMessage from '../components/FlashMessage';
 
@@ -64,6 +65,12 @@ export default () => {
 
         <Row>
           <Col>
+            <LinkContainer exact to="/">
+              <Button><GrPrevious /> Back to list</Button>
+            </LinkContainer>
+
+            <h2>Edit custom claims</h2>
+
             <JSONInput
               id="claimEditor"
               theme="light_mitsuketa_tribute"
@@ -78,7 +85,13 @@ export default () => {
           </Col>
 
         <Col lg="4">
-          <Button onClick={fetchClaims}><GrRefresh /> Refresh </Button>
+          <Button onClick={fetchClaims}><GrRefresh /> Refresh form </Button>
+
+          <LinkContainer to={`/user/${id}`}>
+            <Button>
+              <GrUser /> Edit user
+            </Button>
+          </LinkContainer>
 
           <FlashMessage flash={flash} />
 

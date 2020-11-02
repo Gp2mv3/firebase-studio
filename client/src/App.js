@@ -44,15 +44,14 @@ function App() {
           <div id="content">
             <Navbar bg="primary" variant="dark">
               <Container>
-              <LinkContainer to="/">
-
-                <NavbarBrand>
-                  Firebase Studio
-                </NavbarBrand>
+                <LinkContainer to="/">
+                  <NavbarBrand>
+                    Firebase Studio
+                  </NavbarBrand>
                 </LinkContainer>
 
                 <Nav>
-                  <LinkContainer to="/">
+                  <LinkContainer to="/" exact>
                     <Nav.Link><GrUnorderedList /> User list</Nav.Link>
                   </LinkContainer>
                 </Nav>
@@ -60,7 +59,7 @@ function App() {
                 <Nav className="mr-auto"></Nav>
 
                 <Nav>
-                  <LinkContainer to="/setup">
+                  <LinkContainer to="/setup" exact>
                     <Nav.Link><GrTroubleshoot /> Setup Proxy</Nav.Link>
                   </LinkContainer>
                 </Nav>
