@@ -5,6 +5,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+import { GrRefresh } from 'react-icons/gr';
+
 import Table from '../components/Table';
 
 import { fetchGet } from '../services/networkManager';
@@ -25,7 +27,7 @@ export default () => {
   return (
     <Container fluid>
       <Row>
-        <Col><Button onClick={fetchList}>Fetch </Button></Col>
+        <Col><Button onClick={fetchList}><GrRefresh /> Fetch </Button></Col>
       </Row>
 
       <Row>

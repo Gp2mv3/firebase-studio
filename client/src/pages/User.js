@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
 import Button from "react-bootstrap/Button";
+import { GrRefresh } from 'react-icons/gr';
 
 import { useForm } from "react-hook-form";
 
@@ -198,7 +199,7 @@ export default () => {
         </Col>
 
         <Col lg="4">
-          <Button onClick={fetchUser}>Refresh form</Button>
+          <Button onClick={fetchUser}><GrRefresh /> Refresh form</Button>
 
           {!!flash && (
             <Alert variant={flash.success ? "success" : "warning"}>

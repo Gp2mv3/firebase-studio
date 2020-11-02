@@ -21,3 +21,10 @@ code {
   margin-top: 30px;
   margin-bottom: 30px;
 }
+
+/*
+Correct issue on Grommet icons: https://github.com/react-icons/react-icons/issues/334
+*/
+.btn-primary path, g {
+  stroke: currentColor;
+}
