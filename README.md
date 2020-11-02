@@ -12,8 +12,10 @@ It includes:
 ## How to use:
 
 The project is composed of two elements:
-- The client: The web interface, built with React
+- The client: The web interface, built with React ((available here)[https://gp2mv3.github.io/firebase-studio])
 - The proxy: Interface between Firebase admin SDK and the client, built with Node and Express
+
+The client is available online: https://gp2mv3.github.io/firebase-studio
 
 ### Environment variables for Admin SDK
 
@@ -38,6 +40,8 @@ Proxy can be configured through environment variables. Here are the available pa
 - `PORT`: Port used by the proxy (by default: 4000)
 
 ### Client
+
+The client is available on https://gp2mv3.github.io/firebase-studio and can be used as-is.
 
 In dev, you can simply use `npm start` (after `npm install`) in the client folder:
 ```
