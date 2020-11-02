@@ -11,6 +11,8 @@ import Alert from "react-bootstrap/Alert";
 import JSONInput from "react-json-editor-ajrm";
 import locale from "react-json-editor-ajrm/locale/en";
 
+import { GrRefresh } from 'react-icons/gr';
+
 import FlashMessage from '../components/FlashMessage';
 
 import { fetchGet, fetchPost } from '../services/networkManager';
@@ -59,14 +61,6 @@ export default () => {
 
   return (
     <Container fluid>
-      <Row>
-        <Col>
-        <Row>
-          <Col>
-            <Button onClick={fetchClaims}>Refresh </Button>
-          </Col>
-        </Row>
-
 
         <Row>
           <Col>
@@ -82,10 +76,10 @@ export default () => {
             />
             <Button onClick={sendClaims} disabled={!canSend}>Update claims</Button>
           </Col>
-        </Row>
-        </Col>
 
         <Col lg="4">
+          <Button onClick={fetchClaims}><GrRefresh /> Refresh </Button>
+
           <FlashMessage flash={flash} />
 
           <Alert variant="info">
@@ -97,8 +91,6 @@ export default () => {
             </Alert>
         </Col>
       </Row>
-
-
     </Container>
   );
 };
