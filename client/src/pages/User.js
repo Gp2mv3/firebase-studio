@@ -8,15 +8,15 @@ import Col from "react-bootstrap/Col";
 
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-
 import Button from "react-bootstrap/Button";
+import { Alert } from "react-bootstrap";
+
 import { GrRefresh } from 'react-icons/gr';
-
 import { useForm } from "react-hook-form";
-
 import locale from "react-json-editor-ajrm/locale/en";
 
-import { Alert } from "react-bootstrap";
+import FlashMessage from '../components/FlashMessage';
+
 import { fetchGet, fetchPost } from "../services/networkManager";
 
 export default () => {
@@ -24,7 +24,7 @@ export default () => {
 
   const [user, setUser] = useState(undefined);
   const [canSend, setCanSend] = useState(false);
-  const [flash, setFlash] = useState(null);
+  const [flash, setFlash] = useState({});
   const { register, handleSubmit, watch, errors } = useForm();
 
   async function fetchUser() {
@@ -45,9 +45,9 @@ export default () => {
 
     try {
       await fetchPost(`user/${id}`, { user, sendVerificationEmail });
-      setFlash({ success: true });
+      setFlash({ success: "User updated !" });
     } catch (e) {
-      setFlash({ success: false, message: e.message });
+      setFlash({ error: e.message });
     }
 
     setCanSend(true);
@@ -200,12 +200,8 @@ export default () => {
 
         <Col lg="4">
           <Button onClick={fetchUser}><GrRefresh /> Refresh form</Button>
-
-          {!!flash && (
-            <Alert variant={flash.success ? "success" : "warning"}>
-              {flash.message || "User updated !"}
-            </Alert>
-          )}
+          
+          <FlashMessage flash={flash} />
 
           <Alert variant="info">
             <p>All user properties are optional.</p>

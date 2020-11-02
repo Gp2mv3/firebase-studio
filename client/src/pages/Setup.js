@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 import { useForm } from "react-hook-form";
 
@@ -30,8 +31,6 @@ export default () => {
 
   return (
     <>
-      <FlashMessage flash={flash} />
-
       <Container fluid>
         <Row>
           <Col>
@@ -62,6 +61,20 @@ export default () => {
                 Store config
               </Button>
             </Form>
+          </Col>
+
+          <Col lg="4">
+            <FlashMessage flash={flash} />
+
+            <Alert variant="info">
+              <p>Install a <a href="https://github.com/Gp2mv3/firebase-studio" target="_blank">Firebase Studio proxy</a> and configure it with your <a href="https://firebase.google.com/docs/admin/setup#initialize-sdk" target="_blank">Firebase Admin credentials</a>.</p>
+
+              <p>
+                Your proxy has to be accessible by your browser. Requests are sent directly to the URL. If your proxy is exposed to the web, use a strong secret key to ensure security and change it regularly.
+              </p>
+
+              <p>Your setup is stored in your browser (in <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage" target="_blank">localStorage</a>).</p>
+            </Alert>
           </Col>
         </Row>
       </Container>

@@ -6,11 +6,13 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 
 import JSONInput from "react-json-editor-ajrm";
 import locale from "react-json-editor-ajrm/locale/en";
 
-import { Alert } from "react-bootstrap";
+import FlashMessage from '../components/FlashMessage';
+
 import { fetchGet, fetchPost } from '../services/networkManager';
 
 export default () => {
@@ -19,7 +21,7 @@ export default () => {
   const [claims, setClaims] = useState({});
   const [canSend, setCanSend] = useState(false);
   const [formValue, setFormValue] = useState({});
-  const [flash, setFlash] = useState(null);
+  const [flash, setFlash] = useState({});
 
 
   async function fetchClaims() {
@@ -35,10 +37,10 @@ export default () => {
     setCanSend(false);
     try {
       await fetchPost(`user/${id}/claims`, {claims: formValue});
-      setFlash({success: true});
+      setFlash({success: "Claims updated !"});
     }
     catch (e) {
-      setFlash({success: false, message: e.message});
+      setFlash({error: e.message});
     }
   }
 
@@ -57,35 +59,46 @@ export default () => {
 
   return (
     <Container fluid>
- 
-       <Row>
-        <Col>
-          {!!flash && <Alert variant={flash.success ? "success" : 'warning'}>{flash.message || "Claims updated !"}</Alert>}
-
-        </Col>
-      </Row>
-
       <Row>
         <Col>
-          <Button onClick={fetchClaims}>Refresh </Button>
+        <Row>
+          <Col>
+            <Button onClick={fetchClaims}>Refresh </Button>
+          </Col>
+        </Row>
+
+
+        <Row>
+          <Col>
+            <JSONInput
+              id="claimEditor"
+              theme="light_mitsuketa_tribute"
+              placeholder={claims}
+              locale={locale}
+              height="200px"
+              width="100%"
+              onKeyPressUpdate={false}
+              onChange={onChange}
+            />
+            <Button onClick={sendClaims} disabled={!canSend}>Update claims</Button>
+          </Col>
+        </Row>
+        </Col>
+
+        <Col lg="4">
+          <FlashMessage flash={flash} />
+
+          <Alert variant="info">
+              <p>Set <a href="https://firebase.google.com/docs/auth/admin/custom-claims" target="_blank">Custom Claims</a> with this editor.</p>
+              
+              <p>Custom Claims cannot exceed 1000 bytes.</p>
+
+              <p>Updating custom claims overrides the complete object and is irreversible.</p>
+            </Alert>
         </Col>
       </Row>
 
 
-      <Row>
-        <Col>
-          <JSONInput
-            id="claimEditor"
-            theme="light_mitsuketa_tribute"
-            placeholder={claims}
-            locale={locale}
-            height="150px"
-            onKeyPressUpdate={false}
-            onChange={onChange}
-          />
-          <Button onClick={sendClaims} disabled={!canSend}>Update claims</Button>
-        </Col>
-      </Row>
     </Container>
   );
 };
