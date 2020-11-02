@@ -16,7 +16,7 @@ export default () => {
   async function fetchList(fields, sort) {
     const { url, secret } = await getConfig();
 
-    const {users} = await fetch(`${url}/list`, {
+    const {users} = await fetch(`${url}/user/list`, {
       method: 'get',
       headers: { secret }
     }).then(r => r.json());

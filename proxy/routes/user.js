@@ -59,14 +59,14 @@ router.get("/list", async function (req, res, next) {
 });
 
 /* GET home page. */
-router.get("/user/:id", async function (req, res) {
+router.get("/:id", async function (req, res) {
   const { params } = req;
   const { id } = params;
   const user = await admin.auth().getUser(id);
   res.send({ user: formatUser(user) });
 });
 
-router.post("/user/:id", async function (req, res) {
+router.post("/:id", async function (req, res) {
   const { params, body } = req;
   const { id } = params;
   const { user, sendVerificationEmail, askPasswordReset } = body;
@@ -112,7 +112,7 @@ router.post("/user/:id", async function (req, res) {
 });
 
 /* POST update claims */
-router.post("/user/:id/claims", async function (req, res) {
+router.post("/:id/claims", async function (req, res) {
   const { params, body } = req;
   const { id } = params;
   const { claims } = body;
@@ -140,7 +140,7 @@ router.patch("/user/:id/:disabled", async function (req, res) {
 */
 
 /* DELETE user */
-router.delete("/user/:id", async function (req, res) {
+router.delete("/:id", async function (req, res) {
   const { params } = req;
   const { id } = params;
 
