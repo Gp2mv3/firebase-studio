@@ -27,8 +27,15 @@ Simply load the proxy, in the `proxy` folder, run (after `npm install`):
 cd proxy
 npm install # Only needed once
 
-npm start
+FIREBASESTUDIOSECRET=mysecret npm start
 ```
+
+#### Configuration
+Proxy can be configured through environment variables. Here are the available parameters:
+
+- GOOGLE_APPLICATION_CREDENTIALS: Path to your Google Cloud credentil file (.json) **(required)**
+- FIREBASESTUDIOSECRET: Secret keys used by the client to authenticate to the proxy. This key is not required but really advised if your proxy is accessible from the web. Use a strong random string.
+- PORT: Port used by the proxy (by default: 4000)
 
 ### Client
 
