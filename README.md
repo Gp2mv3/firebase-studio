@@ -1,4 +1,4 @@
-## Firebase Studio ([Open Client](https://gp2mv3.github.io/firebase-studio))
+## Firebase Studio ([Open Client](https://gp2mv3.github.io/firebase-studio/))
 
 This tool helps to manage Firebase authentication users. It's a "super firebase console".
 
@@ -12,10 +12,10 @@ It includes:
 ## How to use:
 
 The project is composed of two elements:
-- The client: The web interface, built with React ([available here](https://gp2mv3.github.io/firebase-studio))
+- The client: The web interface, built with React ([available here](https://gp2mv3.github.io/firebase-studio/))
 - The proxy: Interface between Firebase admin SDK and the client, built with Node and Express
 
-The client is available online: https://gp2mv3.github.io/firebase-studio
+The client is available online: https://gp2mv3.github.io/firebase-studio/
 
 ### Environment variables for Admin SDK
 
@@ -41,7 +41,7 @@ Proxy can be configured through environment variables. Here are the available pa
 
 ### Client
 
-The client is available on https://gp2mv3.github.io/firebase-studio and can be used as-is.
+The client is available on https://gp2mv3.github.io/firebase-studio/ and can be used as-is.
 
 In dev, you can simply use `npm start` (after `npm install`) in the client folder:
 ```
