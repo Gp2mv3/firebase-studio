@@ -19,8 +19,8 @@ passport.use(
     (token, done) => {
       // TODO: Currently there is no user management so the returned user is unnecessary
       if (
-        !process.env.FIREBASESTUDIOSECRET ||
-        token === process.env.FIREBASESTUDIOSECRET
+        !process.env.FIREBASE_STUDIO_SECRET ||
+        token === process.env.FIREBASE_STUDIO_SECRET
       )
         return done(null, { authorized: true });
       return done(null, null);
@@ -28,7 +28,7 @@ passport.use(
   )
 );
 
-if (!process.env.FIREBASESTUDIOSECRET) console.warn("Your proxy is currently open. Set a secret with the environment variable `FIREBASESTUDIOSECRET`");
+if (!process.env.FIREBASE_STUDIO_SECRET) console.warn("Your proxy is currently open. Set a secret with the environment variable `FIREBASE_STUDIO_SECRET`");
 
 // view engine setup
 app.use(cors());
