@@ -20,9 +20,9 @@ export default () => {
 
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = ({ proxyAddress, proxySecret }) => {
-    storeConfig(proxyAddress, proxySecret).then(() =>
-      setFlash({ success: "Config stored !" })
-    );
+    fetch(`${proxyAddress}/ping`).then(r => r.json())
+    .then(() => storeConfig(proxyAddress, proxySecret).then(() => setFlash({ success: "Config stored !" })))
+    .catch(() => setFlash({error: `Cannot connect to your proxy on ${proxyAddress}. Is it running ?`}));
   };
 
   const clearButtonClicked = () => {
