@@ -65,7 +65,7 @@ export default () => {
 
         <Row>
           <Col>
-            <LinkContainer exact to="/">
+            <LinkContainer exact to="/list">
               <Button><GrPrevious /> Back to list</Button>
             </LinkContainer>
 

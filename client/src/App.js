@@ -17,6 +17,7 @@ import List from "./pages/List";
 import Setup from "./pages/Setup";
 import Claims from "./pages/Claims";
 import User from "./pages/User";
+import Index from "./pages/Index";
 
 function App() {
   return (
@@ -51,7 +52,7 @@ function App() {
                 </LinkContainer>
 
                 <Nav>
-                  <LinkContainer to="/" exact>
+                  <LinkContainer to="/list" exact>
                     <Nav.Link><GrUnorderedList /> User list</Nav.Link>
                   </LinkContainer>
                 </Nav>
@@ -80,8 +81,12 @@ function App() {
                   <Claims />
                 </Route>
 
-                <Route path="/">
+                <Route path="/list">
                   <List />
+                </Route>
+
+                <Route path="/">
+                  <Index />
                 </Route>
               </Switch>
             </Container>

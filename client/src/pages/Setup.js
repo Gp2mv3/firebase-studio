@@ -10,7 +10,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 
 import { useForm } from "react-hook-form";
 
-import { getConfig, storeConfig } from "../services/configManager";
+import { GrTrash } from 'react-icons/gr';
+
+import { clearConfig, getConfig, storeConfig } from "../services/configManager";
 import FlashMessage from "../components/FlashMessage";
 
 export default () => {
@@ -21,6 +23,15 @@ export default () => {
     storeConfig(proxyAddress, proxySecret).then(() =>
       setFlash({ success: "Config stored !" })
     );
+  };
+
+  const clearButtonClicked = () => {
+    clearConfig();
+
+    setValue("proxyAddress", "");
+    setValue("proxySecret", "");
+
+    setFlash({ success: "Config cleared !" });
   };
 
   useEffect(() => {
@@ -60,7 +71,6 @@ export default () => {
                   name="proxySecret"
                   placeholder=""
                   ref={register}
-                  required
                 />
               </Form.Group>
 
@@ -71,6 +81,10 @@ export default () => {
           </Col>
 
           <Col lg="4">
+            <Button variant="danger" onClick={clearButtonClicked} style={{color: "black"}}>
+              <GrTrash /> Clear config
+            </Button>
+
             <FlashMessage flash={flash} />
 
             <Alert variant="info">
