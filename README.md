@@ -59,4 +59,12 @@ npm build
 
 ## Found a bug?
 
-Feel free to open an issue !
+Feel free to open an issue!
+
+## Screenshots
+Some screenshots of the client interface (Available here: https://gp2mv3.github.io/firebase-studio/ )
+
+![User List](screenshots/userList.png)
+![User Edit](screenshots/editUser.png)
+![Edit Claims](screenshots/editClaims.png)
+![Setup Proxy](screenshots/setup.png)
