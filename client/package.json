@@ -18,7 +18,7 @@
     "react-json-editor-ajrm": "^2.5.10",
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "5.0.1",
     "react-table": "^7.5.1"
   },
   "scripts": {
