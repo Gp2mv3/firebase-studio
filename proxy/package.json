@@ -11,7 +11,7 @@
     "cors": "^2.8.5",
     "date-fns": "^2.16.1",
     "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "express": "~4.17.3",
     "firebase-admin": "^9.2.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
