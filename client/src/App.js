@@ -41,7 +41,7 @@ function App() {
           <hr class="sidebar-divider my-0" />
         </ul>*/}
 
-        <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content-wrapper" className="d-flex flex-column">
           <div id="content">
             <Navbar bg="primary" variant="dark">
               <Container>
@@ -92,7 +92,7 @@ function App() {
             </Container>
           </div>
 
-          <footer class="sticky-footer">
+          <footer className="sticky-footer">
             <Container className="text-center my-auto">
               <Row>
                 <Col>
