@@ -27,6 +27,7 @@ import {
   GrTrash,
   GrPause,
   GrRefresh,
+  GrDownload,
 } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
@@ -40,6 +41,18 @@ const deleteUser = (uid) => () => {
       fetchDelete(`user/${uid}`);
   }
 };
+
+const downloadResults = (page) => () => {
+  let output = 'uid,name,email,"signin","last seen",photo\n';
+  output += page.map(({original: p}) => (`${p.uid},"${p.displayName||""}",${p.email||""},${p.creationTime||""},${p.lastSignInTime||""},${p.photoURL||""}`)).join('\n');
+
+  const encodedData = encodeURI(output);
+  const link = document.createElement('a');
+  link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodedData);
+  link.setAttribute('download', 'export.csv');
+  document.body.appendChild(link);
+  link.click();
+}
 
 const disableUser = (uid) => () => {
   return alert("Not yet implemented");
@@ -111,17 +124,17 @@ const renderProviders = ({ value }) => {
     value.map((provider) => {
       switch (provider.providerId) {
         case "password":
-          return <GrMail title="Password" />;
+          return <GrMail title="Password" key={provider.providerId} />;
         case "google.com":
-          return <GrGoogle title="Google" />;
+          return <GrGoogle title="Google" key={provider.providerId} />;
         case "facebook.com":
-          return <GrFacebook title="Facebook" />;
+          return <GrFacebook title="Facebook" key={provider.providerId} />;
         case "apple.com":
-          return <GrApple title="Apple" />;
+          return <GrApple title="Apple" key={provider.providerId} />;
         case "linkedin.com":
-          return <GrLinkedin title="LinkedIn" />;
+          return <GrLinkedin title="LinkedIn" key={provider.providerId} />;
         default:
-          return <GrHelp title="Unknown" />;
+          return <GrHelp title="Unknown" key={provider.providerId} />;
       }
     })
   );
@@ -266,6 +279,8 @@ export default ({ data, onFetch }) => {
             ))}
           </Form.Control>
         </InputGroup>
+
+        <Button onClick={downloadResults(page)}><GrDownload /> Download</Button>
       </ButtonToolbar>
 
       <BTable striped bordered hover size="sm" {...getTableProps()}>
